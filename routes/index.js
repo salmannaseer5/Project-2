@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const applicationController = require("../controllers/application.js");
 
-// router.get("/", applicationController.index);
+router.get("/", applicationController);
 router.all("/", (req, res) => {
   res.status(400).send();
 });

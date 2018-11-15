@@ -7,11 +7,29 @@ module.exports = {
     // res.send("index view");
   },
   new: (req, res) => {
-    Photo.findById;
+    Photo.find({}).then(photos => {
+      res.render("new").then(photos => res.json(photos));
+    });
+    // res.render("new");
+    // Photo.findById(req.params.id).then(item => {
+    //   res.render("photo/new", photo).then(photos => resizeBy.json(photos));
+    // });
+    // Photo.findById({ _id: req.params.id }).then(photos => res.json(photos));
   },
   create: (req, res) => {
-    Photo.create(req.body);
-    Photo.find({}).then(photos => res.json(photos));
+    Photo.create({
+      title: req.body,
+      description: req.body
+    }).then(photo => {
+      Photo.find({})
+        .then(pic => {
+          res.render("/photo");
+        })
+        .then(photos => res.json(photos));
+    });
+
+    // Photo.create(req.body);
+    // Photo.find({}).then(photos => res.json(photos));
     // creating a new photo and saving it to the database
   },
   show: (req, res) => {
@@ -27,11 +45,16 @@ module.exports = {
     // updating a photo in the database
     Photo.findOneAndUpdate({ _id: req.body.id }, req.body).then(photos =>
       Photo.find({}).then(photos => {
-        res.jason(photos);
+        res.json(photos);
       })
     );
   },
   destroy: (req, res) => {
     // deleting a photo
+    Photo.findByIdAndRemove({ _id: req.params.id }, req.body).then(photo =>
+      Photo.find({}).then(picd => {
+        res.json(picd);
+      })
+    );
   }
 };

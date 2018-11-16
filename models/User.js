@@ -1,16 +1,20 @@
-const mongoose = require("../db/connection");
-const Schema = mongoose.Schema;
+// var mongoose = require('../db/connection');
+// var bcrypt   = require('bcrypt-nodejs');
 
-const User = new Schema({
-  email: String,
-  password: String
-  // photos: [
-  //   {
-  //     type: Schema.Types.ObjectId,
-  //     ref: "Photo"
-  //   }
-  // ]
-});
-// var User = mongoose.model("User", UserSchema);
-// module.exports = User;
-module.exports = mongoose.model("User", User);
+// var User = mongoose.Schema({
+//   local : {
+//     email        : String,
+//     password     : String,
+//   }
+// });
+
+// User.methods.validPassword = function(password) {
+//   return bcrypt.compareSync(password, this.local.password);
+// };
+
+// User.methods.encrypt = function(password) {
+//   return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+// };
+
+// module.exports = mongoose.model('User', User);
+// // 

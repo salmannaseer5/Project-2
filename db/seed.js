@@ -1,13 +1,10 @@
-const mongoose = require("./connection");
-const seeds = require("./seedData");
 const Photo = require("../models/Photo");
+const seedData = require("./seedData.json");
 
-mongoose.Promise = Promise;
-
-Photo.remove({}).then(_ => {
-  console.log("Dropped the DB");
-  Photo.collection.insert(seeds).then(seededEntries => {
-    console.log(seededEntries);
-    mongoose.connection.close();
+Photo.remove({})
+  .then(() => {
+    return Photo.collection.insert(seedData);
+  })
+  .then(() => {
+    process.exit();
   });
-});

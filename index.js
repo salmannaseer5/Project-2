@@ -14,8 +14,8 @@ app.set("view engine", "hbs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
-// app.use(bodyParser.json());
 app.use(require("./routes/index.js"));
+
 
 
 app.set('port', process.env.PORT || 5000)

@@ -3,34 +3,22 @@ const User = require("../models/User");
 
 module.exports = {
   index: (req, res) => {
-    Photo.find({}).then(photos => res.json(photos));
-    // res.send("index view");
+    Photo.find({}).then(photos =>
+      res.render("index", { photos })
+    );
   },
   new: (req, res) => {
     Photo.find({}).then(photos => {
-      res.render("new").then(photos => res.json(photos));
+      res.render("new");
     });
-    // res.render("new");
-    // Photo.findById(req.params.id).then(item => {
-    //   res.render("photo/new", photo).then(photos => resizeBy.json(photos));
-    // });
-    // Photo.findById({ _id: req.params.id }).then(photos => res.json(photos));
   },
   create: (req, res) => {
     Photo.create({
-      title: req.body,
-      description: req.body
+      title: req.body.title,
+      url: req.body.url
     }).then(photo => {
-      Photo.find({})
-        .then(pic => {
-          res.render("/photo");
-        })
-        .then(photos => res.json(photos));
+      res.redirect("/photo");
     });
-
-    // Photo.create(req.body);
-    // Photo.find({}).then(photos => res.json(photos));
-    // creating a new photo and saving it to the database
   },
   show: (req, res) => {
     Photo.findById({ _id: req.params.id }).then(showPhoto =>
@@ -38,23 +26,30 @@ module.exports = {
     );
   },
 
-  edit: (req, res) => {
-    // rendering the form to update an existing photo
-  },
+  // edit: (req, res) => {
+  //   // rendering the form to update an existing photo
+  // },
+  
   update: (req, res) => {
     // updating a photo in the database
-    Photo.findOneAndUpdate({ _id: req.body.id }, req.body).then(photos =>
-      Photo.find({}).then(photos => {
-        res.json(photos);
-      })
-    );
+    let { title, url } = req.body;
+    Photo.findOne({ _id: req.params.id }).then(photo => {
+      photo.save(err => {
+        res.redirect(`/photo/${photo._id}`);
+      });
+    });
   },
+
   destroy: (req, res) => {
     // deleting a photo
-    Photo.findByIdAndRemove({ _id: req.params.id }, req.body).then(photo =>
-      Photo.find({}).then(picd => {
-        res.json(picd);
-      })
-    );
+    Photo.findOneAndRemove({_id: req.params.id})
+   .then ( () => {
+     res.redirect('/');
+   })
+   .catch(err => {
+     console.log(err)
+   });
+
+   
   }
 };

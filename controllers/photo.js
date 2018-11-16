@@ -22,7 +22,7 @@ module.exports = {
   },
   show: (req, res) => {
     Photo.findById({ _id: req.params.id }).then(showPhoto =>
-      res.json(showPhoto)
+      res.render('show', showPhoto )
     );
   },
 

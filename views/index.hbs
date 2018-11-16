@@ -2,7 +2,7 @@
 
 {{#each photos}}
 <h5>New Title: {{title}}</h5>
-<img src={{url}} alt="Italian Trulli">
+<img src="{{this.url}}" alt="Image">
 
 {{!-- <h1>{{url}}</h1> --}}
 <a href="/photo/delete/{{this.id}}">Delete</a>

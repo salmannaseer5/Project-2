@@ -3,16 +3,19 @@ const hbs = require("hbs");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 const app = express();
+const cors = require('cors')
+
 
 
 // view engine setup
 app.set("view engine", "hbs");
 
+app.use(cors())
 
 //middlwware
 
 app.use(express.static("public"));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(methodOverride("_method"));
 app.use(require("./routes/index.js"));
 

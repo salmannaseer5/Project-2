@@ -1,5 +1,5 @@
 const Photo = require("../models/Photo");
-const User = require("../models/User");
+const Comment = require("../models/Comment")
 
 module.exports = {
   index: (req, res) => {
@@ -21,9 +21,20 @@ module.exports = {
     });
   },
   show: (req, res) => {
-    Photo.findById({ _id: req.params.id }).then(showPhoto =>
-      res.render('show', showPhoto )
-    );
+    Photo.findById({ _id: req.params.id })
+    .populate("author")
+      .exec(function(err, photo) {
+        Comment.populate(photo.comments, { path: "author" }, function(
+          err,
+          comments
+        ) {
+          photo.comments = comments;
+          res.render("photo/show", photo);
+        });
+      })
+    // .then(showPhoto =>
+    //   res.render('show', showPhoto )
+    // );
   },
 
   // edit: (req, res) => {
@@ -33,8 +44,8 @@ module.exports = {
   update: (req, res) => {
     // updating a photo in the database
     let { title, url } = req.body;
-    Photo.findOne({ _id: req.params.id }).then(photo => {
-      photo.save(err => {
+    Photo.findByIdAndUpdate({ _id: req.params.id }).then(photo => {
+      photo.save( () => {
         res.redirect(`/photo/${photo._id}`);
       });
     });
@@ -42,7 +53,7 @@ module.exports = {
 
   destroy: (req, res) => {
     // deleting a photo
-    Photo.findOneAndRemove({_id: req.params.id})
+    Photo.findByIdAndDelete({_id: req.params.id})
    .then ( () => {
      res.redirect('/');
    })

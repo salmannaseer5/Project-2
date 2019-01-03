@@ -1,16 +1,16 @@
 const mongoose = require("../db/connection");
+const Schema = mongoose.Schema;
 
-const CommentSchema = new mongoose.Schema({
-  message: String,
+const Comment = new Schema({
+  content: String,
   createdAt: {
     type: Date,
     default: Date.now()
   },
-  ref: Photo,
   author: {
     type: Schema.Types.ObjectId,
     ref: "User"
   }
 });
 
-module.exports = mongoose.model("Comment", CommentSchema);
+module.exports = mongoose.model("Comment", Comment);

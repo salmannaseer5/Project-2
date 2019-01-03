@@ -1,5 +1,9 @@
+const mongoose = require("./connection");
+const seedData = require("./seedData");
 const Photo = require("../models/Photo");
-const seedData = require("./seedData.json");
+
+mongoose.Promise = Promise;
+
 
 Photo.remove({})
   .then(() => {
@@ -7,4 +11,7 @@ Photo.remove({})
   })
   .then(() => {
     process.exit();
-  });
+  })
+  .catch((err) => {
+    console.log(err)
+  })

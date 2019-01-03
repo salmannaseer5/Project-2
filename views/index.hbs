@@ -1,9 +1,37 @@
-<h1>Eye Photo</h1>
+{{!-- <h1>Eye Photo</h1>
 
 {{#each photos}}
 <h5>New Title: {{title}}</h5>
 <img src="{{this.url}}" alt="Image">
 
 {{!-- <h1>{{url}}</h1> --}}
-<a href="/photo/delete/{{this.id}}">Delete</a>
-{{/each}}
+{{!-- <a href="/photo/delete/{{this.id}}">Delete</a>
+{{/each}} --}}
+
+{{ log . }}
+{{#if photos}}
+<ul class="photos">
+    {{#each photos}}
+    <div class="card">
+        <h5>{{title}}</h5>
+        <div class="card-content">
+            <img src="/photo/{{this.url}}" class="card-title">{{content}}</img>
+        </div>
+        <div class="input-field">
+            <textarea name="photo[content]" cols="30" rows="4" placeholder="Comment"></textarea>
+        </div>
+        <div class="input-field">
+            <input type="submit" value="Post" class="btn">
+        </div>
+        {{!-- <div class="card-action"> --}}
+            {{!-- <a href="/user/{{author.id}}">{{author.local.email}}</a> --}}
+            {{!-- <span class="photo_date">{{createdAt}}</span> --}}
+            {{!-- <span class="photo_comments">{{comments.length}}</span> --}}
+        {{!-- </div> --}}
+    </div>
+    <div class= "delete-div">
+    <a class= "deleteButton" style="text-decoration: none" href="/photo/delete/{{this.id}}">Delete</a>
+    </div>
+    {{/each}}
+</ul>
+{{/if}}

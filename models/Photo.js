@@ -1,5 +1,6 @@
 const mongoose = require("../db/connection");
 const Schema = mongoose.Schema;
+
 mongoose.set('useFindAndModify', false);
 
 const Photo = new mongoose.Schema({
@@ -9,11 +10,11 @@ const Photo = new mongoose.Schema({
     type: Date,
     default: Date.now()
   },
-  author: {
+  comment: {
     type: Schema.Types.ObjectId,
-    ref: "User"
+    ref: "Comment"
   },
-  comments: ["Comment"]
+  comments: []
 });
 
 module.exports = mongoose.model("Photo", Photo);

@@ -17,14 +17,14 @@ module.exports = {
       title: req.body.title,
       url: req.body.url
     }).then(photo => {
-      res.redirect("/photo");
+      res.redirect('/photo/');
     });
   },
   show: (req, res) => {
     Photo.findById({ _id: req.params.id })
-    .populate("author")
+    .populate("comment")
       .exec(function(err, photo) {
-        Comment.populate(photo.comments, { path: "author" }, function(
+        Comment.populate(photo.comments, { path: "comment" }, function(
           err,
           comments
         ) {
@@ -43,13 +43,30 @@ module.exports = {
   
   update: (req, res) => {
     // updating a photo in the database
-    let { title, url } = req.body;
-    Photo.findByIdAndUpdate({ _id: req.params.id }).then(photo => {
+    Photo.findOneAndUpdate({ _id: req.params.id }).then(photo => {
+      photo.comments.push(
+        { content });
       photo.save( () => {
         res.redirect(`/photo/${photo._id}`);
       });
     });
   },
+
+
+  // update: (req, res) => {
+  //   Photo.findOneAndUpdate({ _id: req.params.id})
+  //   .then(photo => {
+  //     Comment.create({
+  //       content: req.body.content
+  //     }).then((comment) => {
+  //       res.redirect('/photo/${photo._id}')
+  //     })
+  //     .catch((err) => {
+  //       console.log(err)
+  //     })
+  //   })
+  // },
+
 
   destroy: (req, res) => {
     // deleting a photo
@@ -60,7 +77,5 @@ module.exports = {
    .catch(err => {
      console.log(err)
    });
-
-   
   }
 };

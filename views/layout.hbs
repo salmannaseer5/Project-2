@@ -1,38 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-  {{!-- <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Eye Photo </title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href="css/bootstrap.min.css" rel="stylesheet"> --}}
-  {{!-- <link href="css/mdb.min.css" rel="stylesheet"> --}}
-  <link href="../public/css/style.css" rel="stylesheet">
-</head>
-
-<body>
-    <header>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Photo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
       <nav>
-          <a style="text-decoration: none" href="/">
-            <h1>Photo Booth</h1>
-          </a>
-          {{!-- <a style="text-decoration: none" href="/signIn">Sign In</a>
-          <a style="text-decoration: none" href="/signUp">SignUp</a> --}}
-        </nav>
+        <div class="nav-wrapper">
+          <a href="/" class="brand-logo center photoHome">PhotoBooth</a>
+          <ul class="right">
+            <li><a href="/photo/new"> + Photo</a></li>
+          </ul>
+        </div>
+      </nav>
     </header>
-
-      </main>
-  {{!-- <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-  <script type="text/javascript" src="js/popper.min.js"></script>
-  <script type="text/javascript" src="js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="js/mdb.min.js"></script> --}}
-
-    <main>
-        {{{ body }}}
+    <main class="container">
+      {{{ body }}}
     </main>
-
-</body>
-
+  </body>
 </html>
